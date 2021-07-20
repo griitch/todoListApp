@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Enriqueta:wght@500&display=swap');
+:root {
+    --primary: #1e90ff;
+    --lightcolor: #a6fafa;
+    --darkcolor: #0818A8;
+
+    /* color: var(--primary); */
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Enriqueta', serif;
+}
+body{ font-size: 10px; }
+
+#navbar{
+    display: flex;
+    background-color:  var(--primary);
+    justify-content: center;
+    height: 10vh;
+    font-size: 2rem;
+    line-height: 10vh;
+    align-items: center;
+}
+    .icon {
+    margin: 0 20px;
+}
+
+#container{
+    height: 85vh;
+    display: flex;
+    background-color: aliceblue;
+}
+
+#toolbar{
+    background-color: var(--lightcolor);
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start ;
+    font-size: 1.5rem;
+}
+
+#projectsList {
+    display: flex;
+    flex-direction: column;
+    text-indent: 2rem;
+    font-size: 1.3rem;
+    width: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto    ;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--lightcolor); 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--darkcolor);
+    height: 5px; 
+  }
+  
+
+#toolbar h1 {
+    color: var(--darkcolor);
+    text-indent: 2rem ;
+    margin: 1rem 0 ;
+}
+
+.toolbaritem {
+    height: 8vh;
+    line-height: 8vh;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #0818A8;
+}
+.toolbaritem:hover {
+    background-color: var(--darkcolor);
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.toolbaritemActive {
+   text-decoration: underline;
+}
+
+footer {
+    background-color: black;
+    color: whitesmoke;
+    height: 5vh; 
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 5vh;
+}
+
+a{
+    text-decoration: none;
+    color: aliceblue    ;
+}
