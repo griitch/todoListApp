@@ -12,10 +12,16 @@ export const projectFactory = (name) => {
   const tasks = [];
   
   const projectName = name;
-
   const addTodo = (task) => {
+    
+   for(let e of tasks){
+       if(e.title == task.title)
+        return false;
+   }
+
     tasks.push(task);
     updateStorage();
+    return true;
   };
 
   const remove = (task) => {
@@ -28,7 +34,7 @@ export const projectFactory = (name) => {
 
 export const projectsContainer = ( () => {
 
-    const projects = [];
+    const projects = ["defaultProject"];
 
     const addProject = ( proj )=>{
         projects.push(proj);
@@ -48,3 +54,13 @@ export const projectsContainer = ( () => {
 function updateStorage(){
     localStorage.setItem("projectsContainer",JSON.stringify(projectsContainer) ); 
 }
+
+
+export let dummytask = todoFactory(
+    "dummy todo",
+`Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+Repellendus, eius iure officia laboriosam nesciunt deleniti earum 
+fugit hic voluptas modi.`,
+"07/15/2023"    
+)
+
