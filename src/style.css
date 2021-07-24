@@ -144,6 +144,10 @@ span{
     color: darkred;
     display: block;
 }
+#projectFormSuccess{
+    color: var(--darkcolor);
+    display: block;
+}
 
 .displaynoneclass{
     display: none !important;
