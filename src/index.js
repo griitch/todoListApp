@@ -1,44 +1,33 @@
-import * as todoStuff from "./todosbis.js";
 import * as domStuff from "./domstuff.js";
-import { isToday , isThisWeek, isPast , format, isTomorrow   } from 'date-fns';
+import { isToday , isThisWeek, isPast } from 'date-fns';
+import './style.css';
 
 let currentProject = "defaultProject";
 
-document
-  .querySelector(".modal-footer button")
-  .addEventListener("click", handleTodoFormInput);
+domStuff.renderAproject(currentProject); //load the tasks for the default project 
 
-document
-    .querySelector("#saveProjectForm")
-    .addEventListener("click", handleProjectFormInput);
+document.querySelector(".modal-footer button").addEventListener("click", handleTodoFormInput);
 
-document
-    .querySelector("select")
-    .addEventListener("input",(e)=> {
+document.querySelector("#saveProjectForm").addEventListener("click", handleProjectFormInput);
+
+document.querySelector("select").addEventListener("input",(e)=> {
         domStuff.toggleRemoveProjectDisabled(e.target.value);
         currentProject = e.target.value;
         domStuff.emptyTodosContainer(); 
-        renderAproject(currentProject);
+        domStuff.renderAproject(currentProject);
 });
 
-document
-    .querySelector("#all")
+document.querySelector("#all")
     .addEventListener("click",
     () => {
             domStuff.emptyTodosContainer();
-         renderAproject(currentProject) } );
+         domStuff.renderAproject(currentProject) } );
 
-document
-    .querySelector("#today")
-    .addEventListener("click", renderTodayTodos);
+document.querySelector("#today").addEventListener("click", renderTodayTodos);
 
-document
-    .querySelector("#week")
-    .addEventListener("click", renderThisWeekTodos);
+document.querySelector("#week").addEventListener("click", renderThisWeekTodos);
 
-document
-    .querySelector("#overdue")
-    .addEventListener("click", renderOverdueTodos);
+document.querySelector("#overdue").addEventListener("click", renderOverdueTodos);
 
   
 (() =>{ for(let i = 0 ; i < localStorage.length ; i++)
@@ -48,19 +37,6 @@ document
         domStuff.addProjectOption  (localStorage.key(i)) 
     }
     })();
-
-
-
-export function renderAproject(projectname) {
-    if(!localStorage.getItem(projectname))
-    return;
-   for (let e of JSON.parse(localStorage.getItem(projectname)).tasks )
-        domStuff.renderTodo(e);
-}
-
-renderAproject(currentProject); //load the tasks for the default project 
-
-
 
 function handleTodoFormInput() {
     let newTodo = domStuff.validateTodoFormInput()
@@ -102,27 +78,10 @@ function handleProjectFormInput(){
         
 }
 
-export function whenIsDue( d , isitcomplete){
-   
-   let arr = d.split('-');
-   arr[1] = arr[1] - 1; //decrement op wont work if arr[1] is a string
-   let date = new Date(...arr)
-    if(isToday(date))    
-        return "Due today";
-    else if(isPast(date) && !isitcomplete )
-        return " ( Overdue ! ) Due : " + format(date,"EE M/dd/yyyy");
-    else if(isTomorrow(date) )
-        return "Due tomorrow";
-    else
-    return "Due : " + format(date,"EE M/dd/yyyy");
-        
-}
-
 function renderTodayTodos(){
     if( ! localStorage.getItem(currentProject))
-    {
         return;
-    }
+    
     domStuff.emptyTodosContainer(); 
     let arr, date;
     for (let e of JSON.parse(localStorage.getItem(currentProject)).tasks )

@@ -1,3 +1,5 @@
+import { isToday , isPast , format, isTomorrow   } from 'date-fns';
+
 export const todoFactory = (title, description, dueDate) => {
     
     let isComplete = false;
@@ -8,6 +10,21 @@ export function toggleCompleteTask(task) {
     task.isComplete = !task.isComplete;
 }
 
+export function whenIsDue( d , isitcomplete){
+   
+    let arr = d.split('-');
+    arr[1] = arr[1] - 1; //decrement op wont work if arr[1] is a string
+    let date = new Date(...arr)
+     if(isToday(date))    
+         return "Due today";
+     else if(isPast(date) && !isitcomplete )
+         return " ( Overdue ! ) Due : " + format(date,"EE M/dd/yyyy");
+     else if(isTomorrow(date) )
+         return "Due tomorrow";
+     else
+     return "Due : " + format(date,"EE M/dd/yyyy");
+         
+ }
 
 //------------------------------------------------------------------------------------------------
 

@@ -1,217 +1,190 @@
-@import url('https://fonts.googleapis.com/css2?family=Enriqueta:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Enriqueta:wght@500&display=swap");
 :root {
-    --primary: #1e90ff;
-    --lightcolor: #a6fafa;
-    --darkcolor: #0818A8;
+  --primary: #1e90ff;
+  --lightcolor: #a6fafa;
+  --darkcolor: #0818a8;
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Enriqueta', serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Enriqueta", serif;
 }
 
 select {
-    width: 90% !important; 
-    align-self: center;
+  width: 90% !important;
+  align-self: center;
 }
 
-#navbar{
-    display: flex;
-    background-color:  var(--primary);
-    
-    height: 10vh;
-    font-size: 30px;
-    line-height: 10vh;
-    align-items: center;
+#navbar {
+  display: flex;
+  background-color: var(--primary);
+  height: 10vh;
+  font-size: 2rem;
+  line-height: 10vh;
+  align-items: center;
 }
-    .icon {
-    margin: 0 20px;
-}
-
-#container{
-    height: 85vh;
-    display: flex;
-    background-color: aliceblue;
+.icon {
+  margin: 0 1.5rem;
 }
 
-#toolbar{
-    background-color: var(--lightcolor);
-    flex-direction: column;
-    align-items: flex-start ;
+#container {
+  height: 85vh;
+  display: flex;
+  background-color: aliceblue;
+}
+
+#toolbar {
+  background-color: var(--lightcolor);
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 #projectsList {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    justify-content: center;
-}
-
-.projectName {
-    width: 90%;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px auto 0;
-    border-radius: 25px;
-    text-align: center;
-}
-.projectName:hover{
-    background-color: var(--primary);
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  justify-content: center;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--lightcolor); 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--darkcolor);
-    height: 5px; 
-  }
-  
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--lightcolor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--darkcolor);
+  height: 5px;
+}
 
 #toolbar h1 {
-    color:  var(--darkcolor);
-    text-indent: 1rem ;
-    margin: 1rem 0 ;
+  color: var(--darkcolor);
+  text-indent: 1rem;
+  margin: 1rem 0;
 }
 
 .toolbaritem {
-    min-height: 8vh;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: 20px;
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 1.25rem;
 }
-.toolbaritemWborder{
-    border-bottom: 1px solid var(--darkcolor);
+.toolbaritemWborder {
+  border-bottom: 1px solid var(--darkcolor);
 }
 .toolbaritem:hover {
-    background-color: var(--darkcolor);
-    color: whitesmoke;
-    cursor: pointer;
+  background-color: var(--darkcolor);
+  color: whitesmoke;
+  cursor: pointer;
 }
 
 .toolbaritemActive {
-   text-decoration: underline;
-   background-color: rgb(2, 2, 97);
-   color: whitesmoke;
+  text-decoration: underline;
+  background-color: rgb(2, 2, 97);
+  color: whitesmoke;
 }
 
 footer {
-    background-color: black;
-    color: whitesmoke;
-    height: 5vh; 
-    font-size: 15px;
-    text-align: center;
-    line-height: 5vh;
+  background-color: black;
+  color: whitesmoke;
+  height: 5vh;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 5vh;
 }
 
-a{
-    text-decoration: none;
-    color: aliceblue    ;
+a {
+  text-decoration: none;
+  color: aliceblue;
 }
 
 #display {
-    width: 100%;
-    overflow-y: auto;
-    padding: 25px 35px;
+  overflow-y: auto;
+  padding: 1rem 2rem;
 }
 
-
-#addProjectForm{
-   width: 100%;
+span {
+  white-space: pre;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.incomplete {
+  color: red;
+}
+.complete {
+  color: green;
 }
 
-span{ 
-    white-space:pre;
-    text-transform: capitalize;
+.projectFormErr {
+  color: darkred;
+  display: block;
 }
-.incomplete{    
-    color: red;
-    font-weight: bold;
-}   
-.complete{
-    color: green;
-    font-weight: bold;
+#projectFormSuccess {
+  color: var(--darkcolor);
+  display: block;
 }
 
-.projectFormErr{
-    color: darkred;
-    display: block;
-}
-#projectFormSuccess{
-    color: var(--darkcolor);
-    display: block;
-}
-
-.displaynoneclass{
-    display: none !important;
+.displaynoneclass {
+  display: none !important;
 }
 
 .dueDate {
-    margin-left: auto;
-    margin-right: 0.5rem;
-    text-align: right;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  text-align: right;
 }
 
-
-.accordion-button::after{
-    margin-left: 0;
-}
-
-@media screen and (min-width : 651px ) {
-    #toolbar {
-        width: 25%;
-        display: flex !important;
-    }
-    #hamburger {
-       display: none;
-    }
-    
-    
-
+.accordion-button::after {
+  margin-left: 0;
 }
 #logo {
-    margin: auto;
+  margin: auto;
 }
 
-
-@media screen and (max-width : 650px ) {
-    #toolbar {
-        width: 100vh;
-        overflow: visible;
-        position: fixed;
-        z-index: 1;
-        height: 95vh;
-        display: none;
-    }
-
-    select{
-        width: 80vh !important;
-        align-self: flex-start;
-        margin-left: 1rem;
-        }
-     
-        #hamburger {
-            margin-left: 1rem;
-        }
-        
-        #hamburger:hover {
-            color: wheat;
-            cursor: pointer;
-        }
-        
+@media screen and (min-width: 651px) {
+  #toolbar {
+    width: 25%;
+    display: flex !important;
+  }
+  #hamburger {
+    display: none;
+  }
+  :root {
+    font-size: 16px;
+  }
 }
 
+@media screen and (max-width: 650px) {
+  #toolbar {
+    width: 100vh;
+    overflow: visible;
+    position: fixed;
+    z-index: 1;
+    height: 95vh;
+    display: none;
+  }
 
+  :root {
+    font-size: 14px;
+  }
 
+  select {
+    width: 80vh !important;
+    align-self: flex-start;
+    margin-left: 1rem;
+  }
+  #hamburger {
+    margin-left: 1rem;
+  }
 
+  #hamburger:hover {
+    color: wheat;
+    cursor: pointer;
+  }
+}

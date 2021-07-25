@@ -1,9 +1,4 @@
-//let d = new Date(...document.querySelector("#dueDateOftheTask").value.split('-'))
-
-
-//import { dummytask, todoFactory } from "./todos.js";
-import { todoFactory , removeTask , changeTaskCompletion, removeProject } from "./todosbis.js";
-import {renderAproject , whenIsDue } from './index.js'
+import { todoFactory , removeTask , changeTaskCompletion, removeProject, whenIsDue } from "./todoStuff.js";
 
 const addProjectForm = document.querySelector("#addProjectForm");
 
@@ -118,11 +113,7 @@ export function addProjectOption(e) {
 }
 
 export function renderTodo(todo) {
-  /*  
-      will later implement some logic to mark the overdue tasks
-      if the day is today, write today instead of the yyyy-mm-dd stuff
-  */
-
+  
   let completionStatus = todo.isComplete  == true ? "complete" : "incomplete";
   let markAs = todo.isComplete  == true  ? "incomplete" : "complete" ;
   let validTaskName = todo.title.replaceAll(/[ ']/g, "_");
@@ -151,9 +142,15 @@ data-bs-parent="#todosContainer">
     todosContainer.appendChild(accordionItem);  
     document.querySelectorAll(`button[data-taskname='${todo.title}']`)[0].addEventListener("click",removeTodoFromDom);
     document.querySelectorAll(`button[data-taskname='${todo.title}']`)[1].addEventListener("click",toggleCompleteStatus);
-
-
 }
+
+export function renderAproject(projectname) {
+  if(!localStorage.getItem(projectname))
+  return;
+ for (let e of JSON.parse(localStorage.getItem(projectname)).tasks )
+      renderTodo(e);
+}
+
 
 export function emptyTodosContainer() {
   todosContainer.innerHTML = "";
