@@ -157,7 +157,7 @@ export function emptyTodosContainer() {
 }
 
 export function toggleRemoveProjectDisabled(e) {
-removeProjectBtn.disabled = e == "defaultProject" ? true : false ;
+removeProjectBtn.disabled = e == "defaultProject"; 
 }
 
 export function removeProjectFromDom( e ){
