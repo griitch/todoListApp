@@ -1,7 +1,6 @@
-//import * as todoStuff from "./todos.js";
 import * as todoStuff from "./todosbis.js";
 import * as domStuff from "./domstuff.js";
-//import { format,formatDistanceToNowStrict  } from 'date-fns';
+import { isToday , isThisWeek, isPast , format, isTomorrow   } from 'date-fns';
 
 let currentProject = "defaultProject";
 
@@ -11,9 +10,7 @@ document
 
 document
     .querySelector("#saveProjectForm")
-    .addEventListener("click", () => {
-    handleProjectFormInput();
-});
+    .addEventListener("click", handleProjectFormInput);
 
 document
     .querySelector("select")
@@ -23,6 +20,25 @@ document
         domStuff.emptyTodosContainer(); 
         renderAproject(currentProject);
 });
+
+document
+    .querySelector("#all")
+    .addEventListener("click",
+    () => {
+            domStuff.emptyTodosContainer();
+         renderAproject(currentProject) } );
+
+document
+    .querySelector("#today")
+    .addEventListener("click", renderTodayTodos);
+
+document
+    .querySelector("#week")
+    .addEventListener("click", renderThisWeekTodos);
+
+document
+    .querySelector("#overdue")
+    .addEventListener("click", renderOverdueTodos);
 
   
 (() =>{ for(let i = 0 ; i < localStorage.length ; i++)
@@ -35,7 +51,7 @@ document
 
 
 
-export function renderAproject(projectname){
+export function renderAproject(projectname) {
     if(!localStorage.getItem(projectname))
     return;
    for (let e of JSON.parse(localStorage.getItem(projectname)).tasks )
@@ -55,8 +71,11 @@ function handleTodoFormInput() {
             domStuff.displayAddingEventExists();
             return;
         }
-        domStuff.renderTodo(newTodo);
+        if(document.querySelector(".toolbaritemActive").id == "all"){
+            domStuff.renderTodo(newTodo);
+        }
         domStuff.sanitizeTodoFormInput();
+        domStuff.displaySuccessAddingEvent();
 
     }
 }
@@ -79,13 +98,77 @@ function handleProjectFormInput(){
         todoStuff.projectFactory(domStuff.projectFormInput.value);
 
         domStuff.addProjectOption(domStuff.projectFormInput.value);
-        document.querySelector("#projectFormSuccess").innerHTML = `<div class="alert alert-success alert-dismissible fade show mt-1 mb-0" role="alert"> Project added to the list.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>`   
+        domStuff.displaySuccessAddingProject();
+        
 }
 
+export function whenIsDue( d , isitcomplete){
+   
+   let arr = d.split('-');
+   arr[1] = arr[1] - 1; //decrement op wont work if arr[1] is a string
+   let date = new Date(...arr)
+    if(isToday(date))    
+        return "Due today";
+    else if(isPast(date) && !isitcomplete )
+        return " ( Overdue ! ) Due : " + format(date,"EE M/dd/yyyy");
+    else if(isTomorrow(date) )
+        return "Due tomorrow";
+    else
+    return "Due : " + format(date,"EE M/dd/yyyy");
+        
+}
 
+function renderTodayTodos(){
+    if( ! localStorage.getItem(currentProject))
+    {
+        return;
+    }
+    domStuff.emptyTodosContainer(); 
+    let arr, date;
+    for (let e of JSON.parse(localStorage.getItem(currentProject)).tasks )
+    {
+        arr = e.dueDate.split("-");
+        arr[1] = arr[1] - 1;
+        date = new Date(...arr);
+        if(isToday(date))   
+            domStuff.renderTodo(e);
+    }
+}
 
+function renderThisWeekTodos(){
+    if( ! localStorage.getItem(currentProject))
+        return;
+    
+    domStuff.emptyTodosContainer(); 
+    let arr, date;
+    for (let e of JSON.parse(localStorage.getItem(currentProject)).tasks )
+    {
+        arr = e.dueDate.split("-");
+        arr[1] = arr[1] - 1;
+        date = new Date(...arr);
+        if(isThisWeek(date))   
+            domStuff.renderTodo(e);
+    
+    }
+}
+
+function renderOverdueTodos(){
+    if( ! localStorage.getItem(currentProject))
+        return;
+
+    domStuff.emptyTodosContainer(); 
+    let arr, date;
+    for (let e of JSON.parse(localStorage.getItem(currentProject)).tasks )
+    {
+        arr = e.dueDate.split("-");
+        arr[1] = arr[1] - 1;
+        date = new Date(...arr);
+        if(isPast(date) && !isToday(date) && !e.isComplete)  
+            domStuff.renderTodo(e);
+ 
+         
+    }
+}
 
 
 

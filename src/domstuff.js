@@ -3,7 +3,7 @@
 
 //import { dummytask, todoFactory } from "./todos.js";
 import { todoFactory , removeTask , changeTaskCompletion, removeProject } from "./todosbis.js";
-import {renderAproject } from './index.js'
+import {renderAproject , whenIsDue } from './index.js'
 
 const addProjectForm = document.querySelector("#addProjectForm");
 
@@ -14,6 +14,8 @@ const removeProjectBtn = document.querySelector("#removeProject");
 export const projectFormInput = document.querySelector("#projectFormInput");
 
 const todosContainer = document.querySelector("#todosContainer");
+
+const toolbar = document.querySelector("#toolbar");
 
 const addingTaskError = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
 Insert all elements !!
@@ -27,6 +29,8 @@ const addingTaskSuccess = `<div class="alert alert-success alert-dismissible fad
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
 
+
+
 const addTaskMessage = document.querySelector("#addTaskMessage");
 
 removeProjectBtn.addEventListener("click", removeProjectFromDom )
@@ -35,13 +39,33 @@ document.querySelector("#addProject").addEventListener("click", () => {
   addProjectForm.classList.remove("displaynoneclass");
 });
 
+document.querySelectorAll(".toolbaritemWborder").forEach(e =>{
+  e.addEventListener("click", toggleActiveTab )
+})
+
+document.querySelector("#hamburger")  
+  .addEventListener("click", toggleToolBarDisp)
+
+document.querySelectorAll(".toolbaritemWborder").forEach(elem =>{
+  elem.addEventListener("click",() => {
+    if(document.querySelector("#hamburger").style.display == "none")
+      return;
+    else
+    toggleToolBarDisp();
+  })
+});
 
 document.querySelector("#discardProjectForm").addEventListener("click", () => {
   addProjectForm.classList.add("displaynoneclass");
+  document.querySelector("#projectFormSuccess").innerHTML = "";
   document.querySelectorAll(".projectFormErr").forEach(e => 
     e.classList.add("displaynoneclass"))
 });
 
+function toggleToolBarDisp(){
+  toolbar.style.display = 
+    toolbar.style.display == "none" ? "flex" : "none"; 
+}
 
 export function validateTodoFormInput() {
   for (let i = 0; i < 3; i++) {
@@ -59,9 +83,10 @@ export function validateTodoFormInput() {
 
 export function sanitizeTodoFormInput() {
   for (let i = 0; i < 3; i++) addTasksform.elements[i].value = "";
-
-  displaySuccessAddingEvent();
+  addTaskMessage.innerHTML = "";
 }
+
+document.querySelector("button.btn-close").addEventListener("click",sanitizeTodoFormInput)
 
 function displayErrorAddingEvent() {
   addTaskMessage.innerHTML = addingTaskError;
@@ -70,8 +95,13 @@ function displayErrorAddingEvent() {
 export function displayAddingEventExists() {
   addTaskMessage.innerHTML = addingTaskExists;
 }
+export function displaySuccessAddingProject(){
+  document.querySelector("#projectFormSuccess").innerHTML = `<div class="alert alert-success alert-dismissible fade show mt-1 mb-0" role="alert"> Project added to the list.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`   
+}
 
-function displaySuccessAddingEvent() {
+export function displaySuccessAddingEvent() {
   addTaskMessage.innerHTML = addingTaskSuccess;
 }
 
@@ -88,22 +118,22 @@ export function addProjectOption(e) {
 }
 
 export function renderTodo(todo) {
-/*  
-    will later implement some logic to mark the overdue tasks
-    if the day is today, write today instead of the yyyy-mm-dd stuff
-*/
+  /*  
+      will later implement some logic to mark the overdue tasks
+      if the day is today, write today instead of the yyyy-mm-dd stuff
+  */
 
   let completionStatus = todo.isComplete  == true ? "complete" : "incomplete";
   let markAs = todo.isComplete  == true  ? "incomplete" : "complete" ;
   let validTaskName = todo.title.replaceAll(/[ ']/g, "_");
-
+  let dateStuff = whenIsDue( todo.dueDate , todo.isComplete );
   let accordionItem = document.createElement("div");
   accordionItem.setAttribute("class", "accordion-item");
   accordionItem.innerHTML = `
 <h2 class="accordion-header" data-taskName="${todo.title}"  >
     <button class="accordion-button collapsed" type="button"
     data-bs-toggle="collapse" data-bs-target="#${validTaskName}">
-    ${todo.title}. Due : ${todo.dueDate}. <span class="${completionStatus}"> ( ${completionStatus} )</span>
+    <span class="${completionStatus}"> ( ${completionStatus} ) </span> ${todo.title} <p class="dueDate">${dateStuff}</p>
     </button>
 </h2>
 
@@ -162,6 +192,15 @@ function toggleCompleteStatus(task){
   task.target.innerText = status == "complete" ? "Mark as incomplete " : "Mark as complete";
   let projname = document.querySelector("select").value;
   changeTaskCompletion(projname,taskname); 
+}
+
+function toggleActiveTab(e){
+
+  document.querySelectorAll(".toolbaritemWborder").forEach(elem =>{
+    elem.classList.remove("toolbaritemActive")
+  });
+  e.target.classList.add("toolbaritemActive");
+  
 }
 
 //dummytask.completeTask()

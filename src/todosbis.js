@@ -38,7 +38,6 @@ export const addTodo = (projectname,  task) => {
     }
 
     project.tasks.push(task);
-    console.log( project.tasks )
     localStorage.setItem(projectname, JSON.stringify( project ))
 
     return true;

@@ -11,11 +11,15 @@
     font-family: 'Enriqueta', serif;
 }
 
+select {
+    width: 90% !important; 
+    align-self: center;
+}
 
 #navbar{
     display: flex;
     background-color:  var(--primary);
-    justify-content: center;
+    
     height: 10vh;
     font-size: 30px;
     line-height: 10vh;
@@ -33,11 +37,8 @@
 
 #toolbar{
     background-color: var(--lightcolor);
-    width: 25%;
-    display: flex;
     flex-direction: column;
     align-items: flex-start ;
-    
 }
 
 #projectsList {
@@ -101,6 +102,8 @@
 
 .toolbaritemActive {
    text-decoration: underline;
+   background-color: rgb(2, 2, 97);
+   color: whitesmoke;
 }
 
 footer {
@@ -127,17 +130,18 @@ a{
 #addProjectForm{
    width: 100%;
 }
+
+span{ 
+    white-space:pre;
+    text-transform: capitalize;
+}
 .incomplete{    
     color: red;
-
-}
-
-span{
     font-weight: bold;
-    white-space:pre;
-}
+}   
 .complete{
     color: green;
+    font-weight: bold;
 }
 
 .projectFormErr{
@@ -153,8 +157,60 @@ span{
     display: none !important;
 }
 
+.dueDate {
+    margin-left: auto;
+    margin-right: 0.5rem;
+    text-align: right;
+}
 
 
+.accordion-button::after{
+    margin-left: 0;
+}
+
+@media screen and (min-width : 651px ) {
+    #toolbar {
+        width: 25%;
+        display: flex !important;
+    }
+    #hamburger {
+       display: none;
+    }
+    
+    
+
+}
+#logo {
+    margin: auto;
+}
+
+
+@media screen and (max-width : 650px ) {
+    #toolbar {
+        width: 100vh;
+        overflow: visible;
+        position: fixed;
+        z-index: 1;
+        height: 95vh;
+        display: none;
+    }
+
+    select{
+        width: 80vh !important;
+        align-self: flex-start;
+        margin-left: 1rem;
+        }
+     
+        #hamburger {
+            margin-left: 1rem;
+        }
+        
+        #hamburger:hover {
+            color: wheat;
+            cursor: pointer;
+        }
+        
+}
 
 
 
