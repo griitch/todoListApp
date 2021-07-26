@@ -28,18 +28,18 @@ const addingTaskSuccess = `<div class="alert alert-success alert-dismissible fad
 
 const addTaskMessage = document.querySelector("#addTaskMessage");
 
-removeProjectBtn.addEventListener("click", removeProjectFromDom )
+removeProjectBtn.addEventListener("click", removeProjectFromDom );
 
 document.querySelector("#addProject").addEventListener("click", () => {
   addProjectForm.classList.remove("displaynoneclass");
 });
 
 document.querySelectorAll(".toolbaritemWborder").forEach(e =>{
-  e.addEventListener("click", toggleActiveTab )
-})
+  e.addEventListener("click", toggleActiveTab );
+});
 
 document.querySelector("#hamburger")  
-  .addEventListener("click", toggleToolBarDisp)
+  .addEventListener("click", toggleToolBarDisp);
 
 document.querySelectorAll(".toolbaritemWborder").forEach(elem =>{
   elem.addEventListener("click",() => {
@@ -47,14 +47,14 @@ document.querySelectorAll(".toolbaritemWborder").forEach(elem =>{
       return;
     else
     toggleToolBarDisp();
-  })
+  });
 });
 
 document.querySelector("#discardProjectForm").addEventListener("click", () => {
   addProjectForm.classList.add("displaynoneclass");
   document.querySelector("#projectFormSuccess").innerHTML = "";
   document.querySelectorAll(".projectFormErr").forEach(e => 
-    e.classList.add("displaynoneclass"))
+    e.classList.add("displaynoneclass"));
 });
 
 function toggleToolBarDisp(){
@@ -69,9 +69,9 @@ export function validateTodoFormInput() {
       return false;
     }
   }
-  let name = addTasksform.elements[0].value
-  let dueDate =addTasksform.elements[1].value
-  let desc =addTasksform.elements[2].value
+  let name = addTasksform.elements[0].value;
+  let dueDate =addTasksform.elements[1].value;
+  let desc =addTasksform.elements[2].value;
   let newTodo = todoFactory(name, desc, dueDate);
   return newTodo;
 }
@@ -81,7 +81,7 @@ export function sanitizeTodoFormInput() {
   addTaskMessage.innerHTML = "";
 }
 
-document.querySelector("button.btn-close").addEventListener("click",sanitizeTodoFormInput)
+document.querySelector("button.btn-close").addEventListener("click",sanitizeTodoFormInput);
 
 function displayErrorAddingEvent() {
   addTaskMessage.innerHTML = addingTaskError;
@@ -93,7 +93,7 @@ export function displayAddingEventExists() {
 export function displaySuccessAddingProject(){
   document.querySelector("#projectFormSuccess").innerHTML = `<div class="alert alert-success alert-dismissible fade show mt-1 mb-0" role="alert"> Project added to the list.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>`   
+        </div>`;
 }
 
 export function displaySuccessAddingEvent() {
@@ -104,7 +104,7 @@ export function addProjectOption(e) {
   let option = document.createElement("option");
   option.setAttribute("value",e);
   option.innerText = e;  
-  option.setAttribute("data-taskname", e) 
+  option.setAttribute("data-taskname", e);
   document.querySelector("#projectFormEmpty").classList.add("displaynoneclass");
   document.querySelector("#projectFormExists").classList.add("displaynoneclass");
   document.querySelector("select").appendChild(option);
@@ -160,13 +160,13 @@ export function toggleRemoveProjectDisabled(e) {
 removeProjectBtn.disabled = e == "defaultProject"; 
 }
 
-export function removeProjectFromDom( e ){
+export function removeProjectFromDom(  ){
 
   let projname = document.querySelector("select").value;
   let option = document.querySelector(`option[data-taskname="${projname}"]`);
   option.remove();
   removeProject(projname);
-  toggleRemoveProjectDisabled(document.querySelector("select").value)
+  toggleRemoveProjectDisabled(document.querySelector("select").value);
   emptyTodosContainer();
   renderAproject(document.querySelector("select").value);
 }
@@ -181,7 +181,7 @@ function removeTodoFromDom(task){
 function toggleCompleteStatus(task){
 
   let taskname = task.target.getAttribute("data-taskname");
-  let span = document.querySelector(`h2[data-taskname="${taskname}"] span`)
+  let span = document.querySelector(`h2[data-taskname="${taskname}"] span`);
   span.classList.toggle("incomplete");
   span.classList.toggle("complete");
   let status = span.getAttribute("class") == "complete" ? "complete" : "incomplete";
@@ -194,7 +194,7 @@ function toggleCompleteStatus(task){
 function toggleActiveTab(e){
 
   document.querySelectorAll(".toolbaritemWborder").forEach(elem =>{
-    elem.classList.remove("toolbaritemActive")
+    elem.classList.remove("toolbaritemActive");
   });
   e.target.classList.add("toolbaritemActive");
   

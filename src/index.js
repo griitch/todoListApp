@@ -1,6 +1,7 @@
 import * as domStuff from "./domstuff.js";
-import { isToday , isThisWeek, isPast } from 'date-fns';
-import './style.css';
+import { isToday , isThisWeek, isPast } from "date-fns";
+import * as todoStuff from "./todoStuff";
+import "./style.css";
 
 let currentProject = "defaultProject";
 
@@ -21,7 +22,7 @@ document.querySelector("#all")
     .addEventListener("click",
     () => {
             domStuff.emptyTodosContainer();
-         domStuff.renderAproject(currentProject) } );
+         domStuff.renderAproject(currentProject); } );
 
 document.querySelector("#today").addEventListener("click", renderTodayTodos);
 
@@ -34,12 +35,12 @@ document.querySelector("#overdue").addEventListener("click", renderOverdueTodos)
     {
         if(localStorage.key(i) == "defaultProject") 
         continue;
-        domStuff.addProjectOption  (localStorage.key(i)) 
+        domStuff.addProjectOption  (localStorage.key(i)); 
     }
     })();
 
 function handleTodoFormInput() {
-    let newTodo = domStuff.validateTodoFormInput()
+    let newTodo = domStuff.validateTodoFormInput();
     if( newTodo ){
 
         if(!todoStuff.addTodo(currentProject,newTodo))
